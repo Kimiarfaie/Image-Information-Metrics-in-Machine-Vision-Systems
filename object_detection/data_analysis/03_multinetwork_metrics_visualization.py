@@ -37,7 +37,7 @@ split_labels = [" AND ".join(k) for k in split_conditions]
 plt.figure(figsize=(10, 7))
 
 for net in networks:
-    net_csv = os.path.join(base_dir, net, "per-image-validation", "outputs", "Full Dataset", "per_image_results", csv_filename)
+    net_csv = os.path.join(base_dir, net, "per-image-validation", "outputs", "Full Dataset", csv_filename)
     if not os.path.exists(net_csv):
         print(f"CSV file missing for {net}: {net_csv}")
         continue

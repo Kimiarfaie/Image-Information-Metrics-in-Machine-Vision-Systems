@@ -23,7 +23,7 @@ split_labels = [" AND ".join(conds) for conds in split_conditions]
 for network in networks:
     print(f"Processing network: {network}")
     
-    csv_path = f"/Users/kimiaarfaie/Github/Image-Information-Metrics-in-Machine-Vision-Systems/object_detection/{network}/per-image-validation/outputs/Full Dataset/pre_image_results/all_images_metricsummary.csv"
+    csv_path = f"/Users/kimiaarfaie/Github/Image-Information-Metrics-in-Machine-Vision-Systems/object_detection/{network}/per-image-validation/outputs/Full Dataset/all_images_metricsummary.csv"
     base_output_dir = f"/Users/kimiaarfaie/Github/Image-Information-Metrics-in-Machine-Vision-Systems/object_detection/{network}/per-image-validation/outputs/Full Dataset"
     analysis_dir = os.path.join(base_output_dir, "metric_visualization")
     split_analysis_json = os.path.join(base_output_dir, f"data_analysis_{split}.json")
