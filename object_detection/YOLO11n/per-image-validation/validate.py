@@ -64,10 +64,10 @@ def run_per_image_validation(model_path, dataset_path, output_base_dir, class_id
         ann_by_image.setdefault(ann["image_id"], []).append(ann)
 
     # ------------------- Prepare CSV -------------------
-    per_image_root = os.path.join(output_dir, "all_images_metricsummary")
+    per_image_root = os.path.join(output_dir, "per_image_results")
     os.makedirs(per_image_root, exist_ok=True)
 
-    csv_path = os.path.join(per_image_root, "per_image_results.csv")
+    csv_path = os.path.join(output_dir, "all_images_metricsummary.csv")
     
     with open(csv_path, "w") as f:
         f.write("image,mAP50_95,mAP50,mAP75,Precision,Recall\n")
