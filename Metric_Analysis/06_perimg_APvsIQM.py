@@ -7,14 +7,16 @@ from scipy.stats import spearmanr, kendalltau
 # --- CONFIGURATION ---
 networks = ["YOLO11n", "YOLO11m", "SSD", "FasterRCNN-mobilenet", "FasterRCNN"]
 iqm_source = "Chart"  # or "Chart"
-imatest_summary_path = f"/home/colourlabgpu4/Kimia/Thesis/Metric_Analysis/Metrics/{iqm_source}/Average Metrics"
+imatest_summary_path = f"/Users/kimiaarfaie/Github/Image-Information-Metrics-in-Machine-Vision-Systems/Metric_Analysis/Metrics/{iqm_source}/Average Metrics"
 
 keyword = "sharpness"
-#splits = ["100ISO_AND_Focused", "1600ISO_AND_Focused", "6400ISO_AND_Focused", "25600ISO_AND_Focused"]
-splits = ["Focused", "Defocus1", "Defocus2"]
-#splits = ["100ISO", "1600ISO", "6400ISO", "25600ISO"]
-#splits = ["18.0 mm_AND_Dist1", "18.0 mm_AND_Dist2", "55.0 mm_AND_Dist1", "55.0 mm_AND_Dist2"]
-#splits = ["-3EV", "-2EV", "-1EV", "0EV", "+1EV"]
+ISOfocused_split = ["100ISO_AND_Focused", "1600ISO_AND_Focused", "6400ISO_AND_Focused", "25600ISO_AND_Focused"]
+Focused_split = ["Focused", "Defocus1", "Defocus2"]
+ISO_split = ["100ISO", "1600ISO", "6400ISO", "25600ISO"]
+size_split = ["18.0 mm_AND_Dist1", "18.0 mm_AND_Dist2", "55.0 mm_AND_Dist1", "55.0 mm_AND_Dist2"]
+EV_split = ["-3EV", "-2EV", "-1EV", "0EV", "+1EV"]
+
+splits = ISO_split
 
 category_colors = {
     "car": "blue",

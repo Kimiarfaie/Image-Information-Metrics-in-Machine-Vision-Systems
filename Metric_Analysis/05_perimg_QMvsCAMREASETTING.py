@@ -4,6 +4,7 @@ import json
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import matplotlib
 
 """
 Script 05:
@@ -22,19 +23,19 @@ The script will:
 
 # --- CONFIGURATION ---
 networks = ["YOLO11n", "YOLO11m", "SSD", "FasterRCNN-mobilenet", "FasterRCNN"]
-keyword = "NOISE-ONLY"
-xlabel = "SNR (dB)"
+keyword = "NOISE-ONLY"  # or "sharpness", "ISO", "EV", "size"
+xlabel = "SNR (dB)"  
 iqm_source = "Dataset"
 
-ISO_split = [["100ISO"], ["1600ISO"], ["6400ISO"], ["25600ISO"]]
-focus_split = [["Focused"], ["Defocus1"], ["Defocus2"]]
 ISOfocuse_split = [["100ISO", "Focused"], ["1600ISO", "Focused"], ["6400ISO", "Focused"], ["25600ISO", "Focused"]]
 size_split = [["18.0 mm", "Dist1"], ["18.0 mm", "Dist2"], ["55.0 mm", "Dist1"], ["55.0 mm", "Dist2"]]
+ISO_split = [["100ISO"], ["1600ISO"], ["6400ISO"], ["25600ISO"]]
+Focused_split = [["Focused"], ["Defocus1"], ["Defocus2"]]
 EV_split = [["-3EV"], ["-2EV"], ["-1EV"], ["0EV"], ["+1EV"]]
 
 split_conditions = ISOfocuse_split
 
-imatest_summary_path = f"/Users/kimiaarfaie/Github/Image-Information-Metrics-in-Machine-Vision-Systems/Metric_Analysis/Metrics/{iqm_source}/Average Metrics+1"
+imatest_summary_path = f"/home/colourlabgpu4/Kimia/Thesis/Metric_Analysis/Metrics/{iqm_source}/Average Metrics+1"
 
 custom_annotations = {
     "Chart": {
@@ -43,7 +44,7 @@ custom_annotations = {
     "Dataset": {
         "sharpness": ["0.155 Cy/Pxl", "0.042 Cy/Pxl", "0.024 Cy/Pxl"],
         "EV": ["8.21", "12.30", "18.04", "25.94", "35.71"],
-        "size": ["size1", "size2", "size3", "size4"]
+        "size": ["640", "1206", "5198", "9770"]
     }
 }
 
@@ -54,17 +55,41 @@ def get_annotation(split, idx):
             return values[idx]
     return None
 
-def add_vertical_annotations(splits, y_max, plot_type):
-    vertical_offset = 0.03 * y_max
-    for idx, split in enumerate(splits):
-        ann = get_annotation(split, idx)
-        label = ann if ann else None
-        if not label and split in snr_values_for_ISO and plot_type in ["combined", "snri_square"]:
-            label = f"{snr_values_for_ISO[split]:.1f} dB"
-        if label:
-            plt.axvline(x=split, color='gray', linestyle='--', linewidth=1)
-            plt.text(split, y_max + vertical_offset, label, ha='center', va='bottom',
-                     fontsize=12, color='gray', rotation=90)
+def get_xvalues_from_keyword_v2(keyword, split_conditions, mtf50_values, snr_values_for_ISO, custom_annotations, iqm_source):
+    x_vals = []
+    if keyword == "NOISE-ONLY":
+        for condition in split_conditions:
+            label = "_AND_".join(condition)
+            x_vals.append(snr_values_for_ISO.get(label, None))
+    elif keyword == "sharpness":
+        values = custom_annotations.get(iqm_source, {}).get("sharpness", [])
+        for idx in range(len(split_conditions)):
+            if idx < len(values):
+                try:
+                    mtf_val = float(values[idx].split()[0])
+                    x_vals.append(mtf_val)
+                except:
+                    x_vals.append(mtf50_values[idx] if idx < len(mtf50_values) else None)
+            else:
+                x_vals.append(mtf50_values[idx] if idx < len(mtf50_values) else None)
+    elif keyword == "EV":
+        values = custom_annotations.get(iqm_source, {}).get("EV", [])
+        for idx in range(len(split_conditions)):
+            try:
+                x_vals.append(float(values[idx]))
+            except:
+                x_vals.append(None)
+    elif keyword == "size":
+        values = custom_annotations.get(iqm_source, {}).get("size", [])
+        for idx in range(len(split_conditions)):
+            try:
+                x_vals.append(float(values[idx]))
+            except:
+                x_vals.append(None)
+    else:
+        x_vals = list(range(1, len(split_conditions) + 1))
+    return x_vals
+
 
 for network in networks:
     print(f"Processing: {network}")
@@ -108,7 +133,7 @@ for network in networks:
             summary = json.load(f)
 
         override_mtf = get_annotation(label, idx)
-        if override_mtf and "Cy/Pxl" in override_mtf:
+        if override_mtf and "Cyc/Pxl" in override_mtf:
             mtf50_values.append(float(override_mtf.split()[0]))
         else:
             mtf50_values.append(summary.get("mtf50"))
@@ -134,19 +159,20 @@ for network in networks:
         if snri_sq and snri_x:
             snri_square_data[label] = (snri_x[:len(snri_sq)], snri_sq)
 
+    x_values = get_xvalues_from_keyword_v2(keyword, split_conditions, mtf50_values, snr_values_for_ISO, custom_annotations, iqm_source)
+
     # --- COMBINED PLOT ---
     plt.figure(figsize=(10, 8))
-    plt.scatter(valid_splits, mtf50_values, label="MTF50_Y_horizontal", marker='o', s=80)
-    plt.scatter(valid_splits, map_values, label="mAP@[0.50:0.95]", marker='^', s=160, color="k")
-    plt.scatter(valid_splits, c4_values, label="C4", marker='s', s=80)
-    plt.scatter(valid_splits, cmax_values, label="Cmax", marker='*', s=80)
-    plt.scatter(valid_splits, edge_snri_values, label="Edge SNRi", marker='D', s=80)
-    combined_values = map_values + mtf50_values + c4_values + cmax_values + edge_snri_values
-    ymax = max([v for v in combined_values if v is not None]) * 1.05
-    add_vertical_annotations(valid_splits, ymax, "combined")
-    plt.xlabel(xlabel, fontsize=12)
-    plt.ylabel("Metric Value", fontsize=12)
-    plt.legend(fontsize=12)
+    ax = plt.gca()
+    ax.tick_params(labelsize=20)
+    plt.scatter(x_values, mtf50_values, label="MTF50_Y_horizontal", marker='o', s=200)
+    plt.scatter(x_values, map_values, label="mAP@[0.50:0.95]", marker='^', s=300, color="k")
+    plt.scatter(x_values, c4_values, label="C4", marker='s', s=200)
+    plt.scatter(x_values, cmax_values, label="Cmax", marker='*', s=300)
+    plt.scatter(x_values, edge_snri_values, label="Edge SNRi", marker='D', s=200)
+    plt.xlabel(xlabel, fontsize=22)
+    plt.ylabel("Metric Value", fontsize=22)
+    plt.legend(fontsize=22)
     plt.grid(True)
     plt.tight_layout()
     ax = plt.gca()
@@ -157,32 +183,16 @@ for network in networks:
 
     # --- SNRi Square dB Plot ---
     plt.figure(figsize=(10, 8))
-    plt.scatter(valid_splits, snri_square_dB_avg_values, label="SNRi Square (dB per pixel^2)", marker='o', s=100, color='purple')
-    ymax = max([v for v in snri_square_dB_avg_values if v is not None]) * 1
-    add_vertical_annotations(valid_splits, ymax, "snri_square")
-    plt.xlabel(xlabel, fontsize=12)
-    plt.ylabel("SNRi Square (dB per pixel^2)", fontsize=12)
-    plt.legend(fontsize=12)
+    ax = plt.gca()
+    ax.tick_params(labelsize=20)
+    plt.scatter(x_values, snri_square_dB_avg_values, label="SNRi Square (dB)", marker='o', s=300, color='purple')
+    plt.xlabel(xlabel, fontsize=22)
+    plt.ylabel("SNRi Square (dB)", fontsize=22)
+    plt.legend(fontsize=22)
     plt.grid(True)
     plt.tight_layout()
     ax = plt.gca()
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
     plt.savefig(os.path.join(analysis_dir, f"{keyword}_SNRi_square_dB_avg.jpg"), dpi=300)
-    plt.close()
-
-    # --- SNRi Square Curve Plot ---
-    plt.figure(figsize=(10, 8))
-    for split, (x, y) in snri_square_data.items():
-        y_dB = [10 * np.log10(val) if val > 0 else float('nan') for val in y]
-        plt.plot(x, y_dB, label=split.replace("AND", " & "), linewidth=2.0)
-    plt.xlabel("SNRi Box Width", fontsize=12)
-    plt.ylabel("SNRi Square (dB per pixel^2)", fontsize=12)
-    plt.legend(fontsize=12)
-    plt.grid(True)
-    plt.tight_layout()
-    ax = plt.gca()
-    ax.spines['top'].set_visible(False)
-    ax.spines['right'].set_visible(False)
-    plt.savefig(os.path.join(analysis_dir, f"{keyword}_SNRiSquare_splits.jpg"), dpi=300)
     plt.close()
