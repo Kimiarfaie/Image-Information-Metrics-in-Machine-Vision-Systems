@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 
 # CONFIGURATION
 source  = "Dataset"
-imatest_summary_path = f"/home/colourlabgpu4/Kimia/Thesis/Metric_Analysis/Metrics/{source}/Average Metrics"
-analysis_dir = f"/home/colourlabgpu4/Kimia/Thesis/Metric_Analysis/Metrics/{source}/MTF"
+imatest_summary_path = f"/Users/kimiaarfaie/Github/Image-Information-Metrics-in-Machine-Vision-Systems/Metric_Analysis/Metrics/{source}/Average Metrics"
+analysis_dir = f"/Users/kimiaarfaie/Github/Image-Information-Metrics-in-Machine-Vision-Systems/Metric_Analysis/Metrics/{source}/MTF_curves"
 os.makedirs(analysis_dir, exist_ok=True)
 
 # Choose your split type (e.g., ISO, EV, etc.)
@@ -45,7 +45,7 @@ for split in splits:
 
     plt.xlabel(f"Frequency ({freq_unit})", fontsize=18)
     plt.xlim(0, 0.5)
-    #plt.ylim(0, 1.5)
+    #plt.ylim(0, 1.5) # play with this, this should change with the data
     plt.ylabel("MTF", fontsize=18)
     plt.legend(fontsize=18)
     plt.grid(True)

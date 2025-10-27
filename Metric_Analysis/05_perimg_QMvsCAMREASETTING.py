@@ -5,20 +5,36 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
+"""
+Script 05:
+This script compares camerra image quality metrics and object detection performance (mAP) from multiple networks 
+(YOLO, SSD, Faster R-CNN variants) against camera settings. 
+
+The script will:
+    • Load per-image detection results for each network.
+    • Match each camera condition (e.g., “100ISO_Focused”) with its averaged Imatest metrics JSON file.
+    • Extract key quality metrics such as MTF50, C4, Cmax, SNR, and SNRi.
+    • Compute average mAP per condition.
+    • Generate and save:
+        - Combined plots showing mAP and quality metrics vs. camera settings plot.
+        - Average SNRi (in dB) vs. camera setting plot.
+"""
+
 # --- CONFIGURATION ---
 networks = ["YOLO11n", "YOLO11m", "SSD", "FasterRCNN-mobilenet", "FasterRCNN"]
 keyword = "NOISE-ONLY"
 xlabel = "SNR (dB)"
 iqm_source = "Dataset"
 
-#split_conditions = [["100ISO"], ["1600ISO"], ["6400ISO"], ["25600ISO"]]
-#split_conditions = [["Focused"], ["Defocus1"], ["Defocus2"]]
-split_conditions = [["100ISO", "Focused"], ["1600ISO", "Focused"], ["6400ISO", "Focused"], ["25600ISO", "Focused"]]
-#split_conditions = [["18.0 mm", "Dist1"], ["18.0 mm", "Dist2"], ["55.0 mm", "Dist1"], ["55.0 mm", "Dist2"]]
-#split_conditions = [["-3EV"], ["-2EV"], ["-1EV"], ["0EV"], ["+1EV"]]
+ISO_split = [["100ISO"], ["1600ISO"], ["6400ISO"], ["25600ISO"]]
+focus_split = [["Focused"], ["Defocus1"], ["Defocus2"]]
+ISOfocuse_split = [["100ISO", "Focused"], ["1600ISO", "Focused"], ["6400ISO", "Focused"], ["25600ISO", "Focused"]]
+size_split = [["18.0 mm", "Dist1"], ["18.0 mm", "Dist2"], ["55.0 mm", "Dist1"], ["55.0 mm", "Dist2"]]
+EV_split = [["-3EV"], ["-2EV"], ["-1EV"], ["0EV"], ["+1EV"]]
 
-imatest_summary_path = f"/home/colourlabgpu4/Kimia/Thesis/Metric_Analysis/Metrics/{iqm_source}/Average Metrics+1"
-use_only_tag = None
+split_conditions = ISOfocuse_split
+
+imatest_summary_path = f"/Users/kimiaarfaie/Github/Image-Information-Metrics-in-Machine-Vision-Systems/Metric_Analysis/Metrics/{iqm_source}/Average Metrics+1"
 
 custom_annotations = {
     "Chart": {
@@ -52,14 +68,12 @@ def add_vertical_annotations(splits, y_max, plot_type):
 
 for network in networks:
     print(f"Processing: {network}")
-    csv_path = f"/home/colourlabgpu4/Kimia/Thesis/Object_Detection/{network}/per-image-validation/outputs/Full Dataset/per_image_results.csv"
-    analysis_dir = f"/home/colourlabgpu4/Kimia/Thesis/Metric_Analysis/{network}_plots/{iqm_source}/perimg_Plots/Metric_Camerasetting"
+    csv_path = f"/Users/kimiaarfaie/Github/Image-Information-Metrics-in-Machine-Vision-Systems/object_detection/{network}/per-image-validation/outputs/Full Dataset/per_image_results.csv"
+    analysis_dir = f"/Users/kimiaarfaie/Github/Image-Information-Metrics-in-Machine-Vision-Systems/Metric_Analysis/{network}_plots/{iqm_source}/perimg_plots/Metric_vs_Camerasetting"
     os.makedirs(analysis_dir, exist_ok=True)
 
     df = pd.read_csv(csv_path)
     df["image"] = df["image"].str.replace(".tiff", "", regex=False)
-    if use_only_tag:
-        df = df[df["image"].str.contains(re.escape(use_only_tag))]
 
     map_values, mtf50_values, c4_values, cmax_values, edge_snri_values = [], [], [], [], []
     valid_splits, snr_values_for_ISO = [], {}
