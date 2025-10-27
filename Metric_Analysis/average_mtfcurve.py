@@ -1,0 +1,104 @@
+import os
+import json
+import numpy as np
+import re
+from glob import glob
+
+# this is only for mtf curves
+
+def normalize(s):
+    return re.sub(r"[^a-zA-Z0-9]", "", s).lower()
+
+def interpolate_vectors(freq_lists, vec_lists, target_freq):
+    interpolated = []
+    for freq, vec in zip(freq_lists, vec_lists):
+        if len(freq) == len(vec) and len(freq) > 1:
+            interp = np.interp(target_freq, freq, vec)
+            interpolated.append(interp)
+    return np.stack(interpolated)
+
+def average_summary_metrics(summary_dir, split_keywords, output_path, mapping_file=None):
+    if isinstance(split_keywords, str):
+        split_keywords = [split_keywords]
+
+    normalized_keywords = [normalize(kw) for kw in split_keywords]
+    all_files = glob(os.path.join(summary_dir, "*_summary.json"))
+
+    filtered_files = []
+    for f in all_files:
+        fname = os.path.basename(f)
+        norm_fname = normalize(fname)
+        if all(nkw in norm_fname for nkw in normalized_keywords):
+            filtered_files.append(f)
+
+    for f in filtered_files:
+        print("  ➔", os.path.basename(f))
+
+    if not filtered_files:
+        print("No matching summary files. Double-check keyword formats.")
+        return
+
+    metrics = {
+        "mtf_r": [], "mtf_g": [], "mtf_b": [],
+        "mtf_y": []
+    }
+
+    x_axis_fields = {
+        "freq1": None, "freq1units": None,
+        "all_freq1": []
+    }
+
+    for file in filtered_files:
+        with open(file, 'r') as f:
+            data = json.load(f)
+
+        mtf_plot = data.get("mtf_plot", {})
+
+        # Vector MTF curves
+        for key in ["mtf_r", "mtf_g", "mtf_b", "mtf_y"]:
+            vec = mtf_plot.get(key)
+            if vec:
+                metrics[key].append(vec)
+
+        freq1 = mtf_plot.get("freq1", [])
+        if freq1:
+            x_axis_fields["all_freq1"].append(freq1)
+
+        if x_axis_fields["freq1units"] is None:
+            x_axis_fields["freq1units"] = mtf_plot.get("freq1units", "")
+
+    # === Averaging ===
+    result = {}
+
+    # Interpolate and average MTF curves
+    target_freq = np.linspace(0, 1.0, 100)
+    freq_lists = x_axis_fields["all_freq1"]
+    for key in ["mtf_r", "mtf_g", "mtf_b", "mtf_y"]:
+        vecs = metrics[key]
+        if vecs and freq_lists and len(vecs) == len(freq_lists):
+            stacked = interpolate_vectors(freq_lists, vecs, target_freq)
+            avg = np.mean(stacked, axis=0)
+            std = np.std(stacked, axis=0)
+            result[key] = avg.tolist()
+            result[f"{key}_std"] = std.tolist()
+
+    result["freq1"] = target_freq.tolist()
+    result["freq1units"] = x_axis_fields["freq1units"]
+
+    # === Save ===
+    os.makedirs(output_path, exist_ok=True)
+    split_name = "_AND_".join([kw.replace(" ", "").replace(".", ".") for kw in split_keywords])
+    output_file = os.path.join(output_path, f"{split_name}_average_summary.json")
+
+    with open(output_file, 'w') as f:
+        json.dump(result, f, indent=4)
+
+    print(f"Saved average summary to: {output_file}")
+
+if __name__ == "__main__":
+    summary_dir = "/home/colourlabgpu4/Kimia/Thesis/Metric_Analysis/Metrics/Dataset/Extracted"
+    keywords = ["-1EV"]  # Change these
+    output_dir = "/home/colourlabgpu4/Kimia/Thesis/Metric_Analysis/Metrics/Datase/Average Metrics"
+
+    print("Script is running without CLI")
+    average_summary_metrics(summary_dir, keywords, output_dir)
