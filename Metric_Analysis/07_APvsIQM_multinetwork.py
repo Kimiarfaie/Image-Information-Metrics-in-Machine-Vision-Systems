@@ -7,10 +7,12 @@ import matplotlib.pyplot as plt
 networks = ["YOLO11n", "YOLO11m", "SSD", "FasterRCNN-mobilenet", "FasterRCNN"]
 iqm_source = "Chart"
 keyword = "sharpness"
-splits = ["Focused", "Defocus1", "Defocus2"]
-#splits = ["100ISO", "1600ISO", "6400ISO", "25600ISO"]
-#splits = ["18.0 mm_AND_Dist1", "18.0 mm_AND_Dist2", "55.0 mm_AND_Dist1", "55.0 mm_AND_Dist2"]
-#splits = ["-3EV", "-2EV", "-1EV", "0EV", "+1EV"]
+focused_split = ["Focused", "Defocus1", "Defocus2"]
+ISO_split = ["100ISO", "1600ISO", "6400ISO", "25600ISO"]
+size_splits = ["18.0 mm_AND_Dist1", "18.0 mm_AND_Dist2", "55.0 mm_AND_Dist1", "55.0 mm_AND_Dist2"]
+EV_splits = ["-3EV", "-2EV", "-1EV", "0EV", "+1EV"]
+
+splits = focused_split
 
 network_colors = {
     "YOLO11m": "orange",
@@ -20,7 +22,7 @@ network_colors = {
     "FasterRCNN": "royalblue"
 }
 
-imatest_summary_path = f"/home/colourlabgpu4/Kimia/Thesis/Metric_Analysis/Metrics/{iqm_source}/Average Metrics"
+imatest_summary_path = f"/home/colourlabgpu4/Kimia/Thesis/Metric_Analysis/Metrics/{iqm_source}/Average Metrics+1"
 
 # --- PRELOAD IQMs ---
 iqm_by_split = {}
@@ -54,7 +56,7 @@ network_data = {metric: {} for metric in metric_names}
 
 # --- COLLECT mAP FOR EACH NETWORK ---
 for network_name in networks:
-    per_image_dir = f"/home/colourlabgpu4/Kimia/Thesis/Object_Detection/{network_name}/per-image-validation/outputs/Full Dataset/per_image_results"
+    per_image_dir = f"/Users/kimiaarfaie/Github/Image-Information-Metrics-in-Machine-Vision-Systems/object_detection/{network_name}/per-image-validation/outputs/Full Dataset/per_image_results"
     csv_path = f"{per_image_dir}.csv"
     if not os.path.exists(csv_path):
         continue
@@ -80,7 +82,7 @@ for network_name in networks:
             network_data[metric][network_name] = (iqm_vals, map_values_by_split)
 
 # --- PLOT EACH IQM ACROSS ALL NETWORKS ---
-output_dir = f"/home/colourlabgpu4/Kimia/Thesis/Metric_Analysis/Network_Comparison_APvsIQM/{iqm_source}"
+output_dir = f"/Users/kimiaarfaie/Github/Image-Information-Metrics-in-Machine-Vision-Systems/Metric_Analysis/Network_Comparison_APvsIQM/{iqm_source}"
 os.makedirs(output_dir, exist_ok=True)
 
 for metric in metric_names:
@@ -124,7 +126,7 @@ for metric in metric_names:
                             color=color, fontsize=9, verticalalignment='bottom', horizontalalignment='left')
 
             except Exception as e:
-                print(f"[!] Log-fit failed for {network_name} on {metric}: {e}")
+                print(f"Log-fit failed for {network_name} on {metric}: {e}")
 
     plt.xlabel(metric_labels[metric], fontsize=22)
     plt.ylabel("mAP", fontsize=22)
