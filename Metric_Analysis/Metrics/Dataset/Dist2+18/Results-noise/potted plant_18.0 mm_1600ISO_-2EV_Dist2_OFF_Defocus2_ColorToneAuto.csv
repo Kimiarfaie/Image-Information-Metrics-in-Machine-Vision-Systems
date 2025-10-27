@@ -1,0 +1,194 @@
+Imatest,24.2.6, Master, Multicharts
+File,potted plant_18.0 mm_1600ISO_-2EV_Dist2_OFF_Defocus2.tiff
+Run date,13-May-2025 10:15:27,,Build 2025-03-20
+Color space,sRGB
+Reference,Default values
+,Ref_folder,/usr/local/Imatest/v24.2/Master/
+Pixel offset,0
+Bit depth, 24-bit color  max=255 of 255
+Number of files for averaging, 96
+Max pixel, 255
+Bayer channel, 
+bayeraw_index, 0
+
+Gamma, 0.361
+mean patch size pxls, 96, 96
+Exposure error, -0.225,f-stops
+
+'Densities' are -log10(normalized pixel levels) for Y R G and B channels; RGBY means in pixels (max 255). (for Dynamic Range) 
+Zone,(-)Log(exp),Y-density,R-density,G-density,B-density,Y-mean, R-mean, G-mean, B-mean, WB Err Deg,WB Err Mired,WB ERR S(HSV),WB Delta-C ab,WB Delta-C 94,WB Delta-C 00
+ 1,  0.0500,  0.4334,  0.4305,  0.4357,  0.4197,  94.0,  94.6,  93.5,  97.0,   264,  -6.0, 0.036,  2.20,  2.20,  2.43
+ 2,  0.5375,  0.5489,  0.5460,  0.5503,  0.5440,  72.0,  72.5,  71.8,  72.9,    55,  -1.3, 0.014,  0.75,  0.75,  0.94
+ 3,  1.0250,  0.7247,  0.7285,  0.7244,  0.7165,  48.1,  47.6,  48.1,  49.0,   224,  -5.1, 0.027,  0.64,  0.64,  0.63
+ 4,  1.5125,  0.9714,  0.9890,  0.9651,  0.9834,  27.2,  26.2,  27.6,  26.5,    39,  -0.9, 0.053,  1.13,  1.13,  1.53
+ 5,  2.0000,  1.2107,  1.1858,  1.2187,  1.2077,  15.7,  16.6,  15.4,  15.8,  -235,   5.8, 0.073,  0.51,  0.51,  0.75
+
+Noise (normalized to maximum) and f-stop noise and SNR (scene-referenced). For Dynamic Range (post-processor).
+,Noise normalized to maximum in pct (B-E);,,,,,f-stop noise (scene-referenced) (G-J);,,,,f-stop Signal/Noise (scene-ref) (K-N)
+Zone,Y-noise,R-noise,G-noise,B-noise,,Y-fstopN,R-fstopN,G-fstopN,B-fstopN,Y-fst_S/N,R-fst_S/N,G-fst_S/N,B-fst_S/N
+ 1,   1.56,   2.82,   1.82,    2.2,,   0.2927,  0.5300,  0.3431,  0.4147,     3.42,    1.89,    2.91,    2.41
+ 2,   1.48,   2.87,   1.76,   2.24,,   0.2663,  0.5156,  0.3162,  0.4033,     3.75,    1.94,    3.16,    2.48
+ 3,   1.71,    3.6,   2.04,   2.64,,   0.3156,  0.6639,  0.3765,  0.4873,     3.17,    1.51,    2.66,    2.05
+ 4,   2.38,   4.48,   2.78,   3.68,,   0.6076,  1.1429,  0.7094,  0.9393,     1.65,    0.87,    1.41,    1.06
+ 5,   3.17,   4.53,   3.56,   3.99,,   1.1359,  1.6202,  1.2731,  1.4271,     0.88,    0.62,    0.79,    0.70
+
+S/N (signal/noise) and SNR(dB) (20*log10(signal/noise)) for each grayscale patch
+Zone,Y-S/N,R-S/N,G-S/N,B-S/N,Y-SNR(dB),R-SNR(dB),G-SNR(dB),B-SNR(dB),Lux (patch)
+ 1,  23.70,  13.17,  20.11,  17.26,  27.49,  22.39,  26.07,  24.74
+ 2,  19.08,   9.92,  16.02,  12.74,  25.61,  19.93,  24.09,  22.10
+ 3,  11.01,   5.19,   9.24,   7.27,  20.84,  14.30,  19.31,  17.23
+ 4,   4.49,   2.29,   3.90,   2.82,  13.04,   7.20,  11.82,   9.01
+ 5,   1.94,   1.44,   1.70,   1.55,   5.76,   3.17,   4.60,   3.83
+
+White-Black SNR (W-B density difference = 1.5),R,G,B,Y
+SNR_BW (dB), 19.2, 23.5, 21.3, 24.9,
+
+Dynamic Range for quality levels corresponding to scene-referenced S/N
+Scene-ref S/N,Quality,DR (f-stops),DR (dB)
+1,Low,6.06,36.5
+2,Medium,4.26,25.7
+4,M-H,0,0
+10,High,0,0
+
+Contrast Resolution for quality levels corresponding to scene-referenced S/N
+20*log10((W-B)/(mid level noise)),Quality,DR(f-stops),DR(dB)
+
+Noise analysis, Grayscale patches sorted dark to light
+Sequence (dark-light),1,2,3,4,5
+Patch number,1,2,3,4,5
+(-)Log exposure,   2.00,   1.51,   1.02,   0.54,   0.05
+R noise,  0.0453,  0.0448,  0.0360,  0.0287,  0.0282
+G noise,  0.0356,  0.0278,  0.0204,  0.0176,  0.0182
+B noise,  0.0399,  0.0368,  0.0264,  0.0224,  0.0220
+Y (Luminance) noise,  0.0317,  0.0238,  0.0171,  0.0148,  0.0156
+Y_Kelly-Keelan noise,  0.0317,  0.0238,  0.0171,  0.0148,  0.0156
+R - Y_kk noise,  0.0350,  0.0375,  0.0309,  0.0244,  0.0237
+B - Y_kk noise,  0.0365,  0.0382,  0.0291,  0.0239,  0.0232
+L* noise,  3.3078,  2.8185,  1.9829,  1.6263,  1.6372
+a* noise,  5.3862,  6.8818,  5.3874,  4.2666,  3.9608
+b* noise,  5.1000,  6.4804,  5.0484,  3.9089,  3.6234
+Total noise (K-K),  0.0383,  0.0330,  0.0252,  0.0209,  0.0211
+Chroma noise (K-K),  0.0214,  0.0228,  0.0185,  0.0147,  0.0143
+Total noise (ISO 12232),  0.0448,  0.0413,  0.0322,  0.0263,  0.0262
+Total L*a*b* noise unwtd,  8.1217,  9.8640,  7.6447,  6.0107,  5.6123
+Total a*b* noise unwtd,  7.4176,  9.4528,  7.3831,  5.7865,  5.3682
+
+ISO 15739 SNR and Dynamic Range
+ISO 15739 noise %,   0.39,   0.39,   0.61,   1.21,   1.74,
+ISO 15739 S/N,    1.31,    2.86,    4.87,    5.38,    6.45,
+ISO 15739 noise % @ 13% Lref,    1.58
+ISO 15739 S/N @ 13% Lref,    6.13
+ISO Visual Noise @ 13% Lref,    4.52
+ISO 15739 Dyn Rng @ density 2, 1432.42
+ISO 15739 Dyn Rng total,     0.00
+Dynamic Range from slope OD,    1.95
+Dynamic Range from slope EV,    6.47
+
+RGB values for reference and input patches
+Patch,R ref,G ref,B ref,R input,G input,B input, Row, Column,Width px, Height px, Pixels total,, Rref/255, Gref/255, Bref/255
+  1, 242.40, 242.40, 242.40,  94.62,  93.50,  97.01,1,1,97,105,10185,,  0.951,  0.951,  0.951
+  2, 146.61, 146.61, 146.61,  72.53,  71.82,  72.87,1,2,98,105,10290,,  0.575,  0.575,  0.575
+  3,  86.60,  86.60,  86.60,  47.65,  48.10,  48.98,1,3,97,105,10185,,  0.340,  0.340,  0.340
+  4,  49.01,  49.01,  49.01,  26.15,  27.63,  26.49,1,4,97,105,10185,,  0.192,  0.192,  0.192
+  5,  25.46,  25.46,  25.46,  16.62,  15.41,  15.81,1,5,97,105,10185,,  0.100,  0.100,  0.100
+
+
+CIELAB and xyY values for reference and input patches
+Patch,L* ref,a* ref,b* ref,L* input,a* input, b* input, x ref,y ref,Y ref,x input,y input, Y input, Patch, Row, Col
+  1,  95.63,   0.00,   0.00,  39.90,   1.19,  -1.85,  0.3127, 0.3290, 0.8913, 0.3094, 0.3208, 0.1119,  1,1,1
+  2,  60.79,   0.00,   0.00,  30.61,   0.53,  -0.53,  0.3127, 0.3290, 0.2901, 0.3122, 0.3259, 0.0649,  2,1,2
+  3,  36.82,   0.00,   0.00,  19.90,   0.01,  -0.64,  0.3127, 0.3290, 0.0944, 0.3093, 0.3254, 0.0296,  3,1,3
+  4,  20.33,   0.00,   0.00,   9.89,  -0.99,   0.54,  0.3127, 0.3290, 0.0307, 0.3110, 0.3361, 0.0111,  4,1,4
+  5,   8.99,   0.00,   0.00,   4.57,   0.51,  -0.05,  0.3127, 0.3290, 0.0100, 0.3175, 0.3257, 0.0051,  5,1,5
+
+
+Color errors for reference vs input patches
+Patch,Delta-E*,Delta-C,Delta-E*94,Delta-C 94,Delta-E 00,Delta-C 00,Row,Column
+  1,  55.77,   2.20,  55.77,   2.20,  44.35,   2.43,1,1
+  2,  30.18,   0.75,  30.18,   0.75,  28.90,   0.94,1,2
+  3,  16.93,   0.64,  16.93,   0.64,  12.86,   0.63,1,3
+  4,  10.50,   1.13,  10.50,   1.13,   7.04,   1.53,1,4
+  5,   4.45,   0.51,   4.45,   0.51,   2.79,   0.75,1,5
+,Delta-E*,Delta-C,Delta-E*94,Delta-C 94,Delta-E 00,Delta-C 00
+Mean,  23.57,   1.05,  23.57,   1.05,  19.19,   1.25
+Maximum,  55.77,   2.20,  55.77,   2.20,  44.35,   2.43,
+Additional color errors and values
+Patch,Delta-L*,Delta-Chroma,|Delta-Hue dist|,|Delta-Hue degs|,,Note: Delta-Hue is undefined for grayscale patches (a* & b* near 0)
+  1, -55.73,   2.20,   0.00,   0.00
+  2, -30.17,   0.75,   0.00,   0.00
+  3, -16.92,   0.64,   0.00,   0.00
+  4, -10.44,   1.13,   0.00,   0.00
+  5,  -4.42,   0.51,   0.00,   0.00
+,Delta-L*,Delta-Chroma,|Delta-Hue dist|,|Delta-Hue degs|
+Mean, -23.54,   1.05,   0.00,   0.00,Maximum,  -4.42,   2.20,   0.00,   0.00,
+Mean camera chroma %,NaN
+
+Mean chroma level CPIQ %,NaN
+CPIQ Chroma quality loss JND,NaN
+CPIQ Exposure quality loss JND,NaN
+
+Mean region size,10108.800000,
+
+Sequence dark to light, Patch number
+  1,  1,
+  2,  2,
+  3,  3,
+  4,  4,
+  5,  5,
+
+R_noise, G_noise, B_noise, Y_luminance_noise,R_SNR_ratio, G_SNR_ratio, B_SNR_ratio, Y_luminance_SNR_ratio,R_SNR_db,G_SNR_db,B_SNR_db, Y_luminance_SNR_db
+0.04527,0.03557,0.03987,0.03174,1.440000,1.699000,1.555000,1.940000,3.169000,4.605000,3.833000,5.755000,
+0.04478,0.0278,0.03681,0.02381,2.290000,3.898000,2.823000,4.486000,7.198000,11.820000,9.013000,13.040000,
+0.03601,0.02042,0.02644,0.01712,5.188000,9.235000,7.266000,11.010000,14.300000,19.310000,17.230000,20.840000,
+0.02867,0.01758,0.02243,0.01481,9.921000,16.020000,12.740000,19.080000,19.930000,24.090000,22.100000,25.610000,
+0.02817,0.01824,0.02204,0.01556,13.170000,20.110000,17.260000,23.700000,22.390000,26.070000,24.740000,27.490000,
+
+Y_f_stop_SNR_ratio,3.417000,3.754000,3.169000,1.646000,0.880300,
+Y_f_stop_SNR_dB,10.670000,11.490000,10.020000,4.328000,-1.107000,
+quality_levels_for_DR,Low,Medium,M-H,High
+SigNoise_levels_for_DR,1.000000, 0.500000, 0.250000, 0.100000, 
+Dynamic_Range_f_stops,6.061000,4.262000,0.000000,0.000000,
+Dynamic_Range_dB,36.490000,25.660000,0.000000,0.000000,
+noise_ISO15739_pct,0.386600,0.388000,0.608500,1.205000,1.736000,
+snr_ISO15739,1.309000,2.865000,4.870000,5.383000,6.447000,
+noise_pct_ISO15739_at_13pct_Lref,1.576000,
+snr_ISO15739_at_13pct_Lref,6.127000,
+snr_dB_ISO15739_at_13pct_Lref,15.740000,
+DynamicRange_at_density_2,1432.000000,
+DynamicRange_total,0.000000,
+DynamicRange_from_slope_OD,1.950000,
+DynamicRange_from_slope_EV,6.474000,
+DynamicRange_from_slope_dB,39.000000,
+SNR_BW_dB_RGBY,19.210000,23.460000,21.340000,24.950000,
+
+L_noise, a_noise, b_noise, Total_Lab_noise_unwtd, Total_ab_noise_unwtd,R_minus_Y_KK_noise, B_minus_Y_KK_noise, Y_Kelly_Keelan_noise, Total_KK_noise, Chroma_KK_noise,Total_old_iso_noise, Y_noise_from_YUV, U_noise_from_YUV, V_noise_from_YUV, Total_UV_noise_from_YUV,R_minus_Y_KK_SNR_dB, B_minus_Y_KK_SNR_dB, Y_Kelly_Keelan_SNR_dB, Total_KK_SNR_dB, Chroma_KK_SNR_dB, Total_old_iso_SNR_dB, ...Y_SNR_dB_from_YUV, U_SNR_dB_from_YUV, V_SNR_dB_from_YUV, Total_UV_SNR_dB_from_YUV
+3.308000,5.386000,5.100000,8.122000,7.418000,0.034980,0.036510,0.031740,0.038290,0.021420,0.044760,0.031730,0.017160,0.027320,0.032260,4.909000,4.537000,5.755000,4.125000,9.170000,2.768000,5.756000,11.100000,7.057000,5.613000,
+2.818000,6.882000,6.480000,9.864000,9.453000,0.037540,0.038250,0.023810,0.033000,0.022840,0.041260,0.023810,0.017970,0.029310,0.034380,9.083000,8.920000,13.040000,10.200000,13.400000,8.261000,13.040000,15.480000,11.230000,9.845000,
+1.983000,5.387000,5.048000,7.645000,7.383000,0.030890,0.029090,0.017120,0.025170,0.018460,0.032230,0.017120,0.013670,0.024120,0.027720,15.710000,16.230000,20.840000,17.490000,20.180000,15.340000,20.840000,22.790000,17.860000,16.650000,
+1.626000,4.267000,3.909000,6.011000,5.787000,0.024430,0.023940,0.014810,0.020890,0.014730,0.026320,0.014810,0.011250,0.019080,0.022140,21.260000,21.440000,25.610000,22.620000,25.660000,20.610000,25.610000,28.000000,23.410000,22.120000,
+1.637000,3.961000,3.623000,5.612000,5.368000,0.023650,0.023200,0.015560,0.021100,0.014260,0.026190,0.015550,0.010900,0.018470,0.021450,23.850000,24.020000,27.490000,24.840000,28.250000,22.970000,27.490000,30.580000,26.000000,24.700000,
+
+gain_incremental ,0.896000,1.230000,2.810000,6.140000,8.210000,
+
+SNR_ISO_Q,0.196900,
+
+ISO 15739 visual noise
+Grayscale patch,1,2,3,4,5,
+Viewing distance 1, 40.00,cm
+Viewing height 1, 25.00,cm
+Viewing angle 1, 34.71,degrees
+L 1(mean),   6.65,   9.54,  20.02,  30.66,  39.82,
+sigma(L 1),  8.17,  5.28,  2.12,  1.87,  3.20,
+sigma(u 1),  1.11,  1.59,  1.87,  1.72,  1.75,
+sigma(v 1),  0.47,  0.59,  0.79,  0.72,  0.75,
+sigma(Visual Noise 1),  9.27,  6.83,  3.97,  3.57,  4.94,
+SNR(L 1),  0.81,  1.81,  9.47, 16.36, 12.44,
+SNR(u 1),  5.99,  6.00, 10.68, 17.87, 22.71,
+SNR(v 1), 14.26, 16.06, 25.50, 42.72, 52.95,
+SNR(Visual Noise 1),  0.72,  1.40,  5.05,  8.60,  8.07,
+
+
+Exif data, 3, lines
+File Modification Date/Time     , 2025:04:22 20:55:44+02:00
+Image Width                     , 6024
+Image Height                    , 4020
