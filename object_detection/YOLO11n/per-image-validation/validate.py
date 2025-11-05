@@ -6,7 +6,7 @@ The script will:
     - Eevaluate a YOLO model, individually on each image of a dataset.
     - For every image, it builds a temporary single-image dataset, 
     - runs `model.val()`,
-    - collects metrics per image (mAP, precision, recall), and saves them in a CSV file.
+    - collects metrics per image, and saves them in a CSV file.
 
 Usage:
     1. Specify the settings below (model path, dataset path, output paths, selected classes).
