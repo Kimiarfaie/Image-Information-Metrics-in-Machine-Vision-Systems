@@ -4,13 +4,13 @@
 
 Under Metrics/Dataset : 
 
-    Folders of "Dist1+18", "Dist2+18", "Dist1+55", and "Dist2+55" contain the raw outputs from Imatest software for both image information metrics (Results folder) and noise analysis (Results-noise folder).
+Folders of "Dist1+18", "Dist2+18", "Dist1+55", and "Dist2+55" contain the raw outputs from Imatest software for both image information metrics (Results folder) and noise analysis (Results-noise folder).
 
-    Images grouped in these four subsets were processed in batch mode by the software. These subsets were chosen as in each group, images had the same ROI of slanted edge. For example, images inside Dist1+18 had 18 mm focal length and Dist1 as the camera-to-scene distance, consequently having the same slanted edge ROI.
+Images grouped in these four subsets were processed in batch mode by the software. These subsets were chosen as in each group, images had the same ROI of slanted edge. For example, images inside Dist1+18 had 18 mm focal length and Dist1 as the camera-to-scene distance, consequently having the same slanted edge ROI.
 
 Under Metrics/Chart :
 
-    "Captures" folder contain the raw outputs from Imatest software for both image information metrics ("Results" folder) and noise analysis ("Results-noise" folder).
+"Captures" folder contain the raw outputs from Imatest software for both image information metrics ("Results" folder) and noise analysis ("Results-noise" folder).
 
 ## Scripts 
 
