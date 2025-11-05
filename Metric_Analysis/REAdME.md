@@ -1,16 +1,16 @@
 ## Folders
 
-"Metrics" folder contain the camera image quality metrics from the imatest software for the chart in the secne ("Dataset" folder) and the eSFR ISO test chart ("Chart" folder). 
+"Metrics" folder contain the camera image quality metrics from the imatest software for the chart in the scenes ("Dataset" folder) and the eSFR ISO test chart ("Chart" folder). 
 
-    - Under Metrics/Dataset : 
+Under Metrics/Dataset : 
 
-        - Folders of "Dist1+18", "Dist2+18", "Dist1+55", and "Dist2+55" contain the raw outputs from Imatest software for both image information metrics (Results folder) and noise analysis (Results-noise folder).
+    Folders of "Dist1+18", "Dist2+18", "Dist1+55", and "Dist2+55" contain the raw outputs from Imatest software for both image information metrics (Results folder) and noise analysis (Results-noise folder).
 
-        - Images were grouped in these four subsets were processed in batch by the software. These subsets were chosen as in each group, images had the same ROI of slanted edge. For example, images inside Dist1+18 had 18 mm focal length and Dist1 as the camera-to-scene distance, consequently having the same slanted edge ROI.
+    Images grouped in these four subsets were processed in batch mode by the software. These subsets were chosen as in each group, images had the same ROI of slanted edge. For example, images inside Dist1+18 had 18 mm focal length and Dist1 as the camera-to-scene distance, consequently having the same slanted edge ROI.
 
-    - Under Metrics/Chart :
+Under Metrics/Chart :
 
-        - "Captures" folder contain the raw outputs from Imatest software for both image information metrics (Results folder) and noise analysis (Results-noise folder).
+    "Captures" folder contain the raw outputs from Imatest software for both image information metrics ("Results" folder) and noise analysis ("Results-noise" folder).
 
 ## Scripts 
 
@@ -19,6 +19,6 @@
 
 2. 02_average_metrics.py computes average camera image quality metrics across a specified subset of the dataset from the Imatest summary JSON files (produced by `extractdata.py`). Run the following command or chnage the defult arguments in the main section. 
 
-It also averages MTF curves across multiple Imatest summary JSON files. This is needed if we want to average the curve for multiple images, as the MTF curves are sampled at different frequency points for each image. Therefore, before averaging, all curves must be interpolated to a common frequency grid. 
+    It also averages MTF curves across multiple Imatest summary JSON files. This is needed if we want to average the curve for multiple images, as the MTF curves are sampled at different frequency points for each image. Therefore, before averaging, all curves must be interpolated to a common frequency grid. 
 
 3. Scripts 3-7 are for plotting MTF curves, Quality metrics vs Camera Settings, mAP vs IQMs, and 3D plots of mAP vs IQMs. 
